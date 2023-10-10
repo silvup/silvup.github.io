@@ -47,7 +47,6 @@ with open("games_stats.txt") as file:
 			if pentakill_spot:
 				playernum += 1
 				pos = int(playernum/3)
-				print(pos)
 				if one in line:
 					pentakillNumber += 1
 					pentakillNames += players[pos]

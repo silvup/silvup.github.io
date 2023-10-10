@@ -15,8 +15,16 @@ h2 {
 p {
   font-family: verdana;
   font-size: 20px;
-  color: white;
 }
+
+.lightgreen {
+  color: lightgreen;
+}
+
+.lightblue {
+  color: lightblue;
+}
+
 label {
   font-family: verdana;
   font-size: 20px;
