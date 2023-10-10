@@ -1,4 +1,5 @@
 from getDragonNumbers import *
+from getPentakillInfo import *
 
 with open("index.html","w") as f:
 	f.writelines(["<!DOCTYPE html>\n",
@@ -16,4 +17,6 @@ with open("index.html","w") as f:
 	f.write("<p>Chemtech: " + str(chemtech) + "</p>\n")
 	f.write("<p>Mountain: " + str(mountain) + "</p>\n")
 	f.write("<p>Hextech: " + str(hextech) + "</p>\n")
+	f.write("<h2>Reverse sweeps: 0</h2>\n")
+	f.write("<h2>Pentakills: " + str(pentakillNumber) + " " + pentakillNames + "</h2>\n")
 	f.writelines(["</body>\n","</html>"])

@@ -1,0 +1,65 @@
+import urllib.request
+
+class AppURLopener(urllib.request.FancyURLopener):
+    version = "Mozilla/5.0"
+
+opener = AppURLopener()
+
+players = ["noplayer"]
+
+pentakill = "Penta kills"
+playerWord = "Player"
+playerLineCount = 0
+one = "1"
+two = "2"
+three = "3"
+four = "4"
+five = "5"
+pentakillNames = ""
+pentakillNumber = 0
+playernum = 0
+pentakill_spot = false
+player_spot = false
+# top jgl mid adc supp
+
+with open("games_stats.txt") as file:
+	for item in file:
+		resp = opener.open(item)
+		urlB = resp.read()
+		urlD = urlB.decode("utf8")
+		for line in urlD:
+			if player_spot:
+				playerLineCount += 1
+				if playerLineCount < 30 && playerLineCount % 3 == 2:
+					players.append(line[3:-3])
+			if playerWord in line:
+				player_spot = true
+			if playernum > 10:
+				return
+			if pentakill_spot:
+				playernum += 1
+				if one in line:
+					pentakillNumber += 1
+					pentakillNames += players[playernum]
+					pentakillNames += " "
+				if two in line:
+					pentakillNumber += 2
+					pentakillNames += players[playernum]
+					pentakillNames += " "
+				if three in line:
+					pentakillNumber += 3
+					pentakillNames += players[playernum]
+					pentakillNames += " "
+				if four in line:
+					pentakillNumber += 4
+					pentakillNames += players[playernum]
+					pentakillNames += " "
+				if five in line:
+					pentakillNumber += 5
+					pentakillNames += players[playernum]
+					pentakillNames += " "
+			if pentakill in line:
+				pentakill_spot = true
+				
+
+					
