@@ -83,7 +83,6 @@ with open("games_timelines.txt") as file:
 		current_gametime = get_gametime(urlD)
 		firstblood_kill.append(get_firstblood(urlPretty))
 		count_firstbloods = dict(Counter(firstblood_kill))
-		print(count_firstbloods)
 		if int(longest_gametime.replace(':', '')) < int(current_gametime.replace(':','')):
 			longest_gametime = current_gametime
 			longest_game = gamename

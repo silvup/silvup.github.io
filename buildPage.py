@@ -1,7 +1,7 @@
 from getDragonNumbers import *
 from getPentakillInfo import *
 
-mapping_table = str.maketrans({'{': '','}': '','\'': ''})
+mapping_table = str.maketrans({'{': '','}': '','\'': '','[': '','(': '',')': '',']': ''})
 
 with open("index.html","w") as f:
 	f.writelines(["<!DOCTYPE html>\n",
@@ -21,10 +21,12 @@ with open("index.html","w") as f:
 	f.write("<p class=lightgreen>Hextech: " + str(hextech) + "</p>\n")
 	f.write("<h2 class=lightgreen>Reverse sweeps: 0</h2>\n")
 	f.write("<h2 class=lightgreen>Baron steals: 0</h2>\n")
-	f.write("<h2 class=lightgreen>Pentakills: " + str(pentakillNumber) + " " + pentakillNames + "</h2>\n")
+	f.write("<h2 class=lightgreen>Pentakills: " + str(pentakillNumber) + " </h2><h2 float:right class =lightsalmon>Players with a pentakill: " + pentakillNames + "</h2>\n")
 	f.write("<h2 class=lightsalmon>Most firstbloods: </h2>\n")
 	f.write("<p class=lightsalmon>" + str(count_firstbloods).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightsalmon>Most baron steals: ?</h2>\n")
+	f.write("<h2 class=lightsalmon>Most kills in a single game: </h2>\n")
+	f.write("<p class=lightsalmon>" + str(highestKills).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightblue>Best 2 seeds region: ?</h2>\n")
 	f.write("<h2 class=lightblue>Worlds winners: ?</h2>\n")
 	f.writelines(["</body>\n","</html>"])
