@@ -8,9 +8,6 @@ class AppURLopener(urllib.request.FancyURLopener):
 opener = AppURLopener()
 
 players = ["noplayer"]
-kills = [0]
-deaths = [0]
-assists = [0]
 playerKDA = dict()
 playerKills = dict()
 playerDeaths = dict()
@@ -80,14 +77,20 @@ with open("games_stats.txt") as file:
 				deathsnum += 1
 				pos = int(deathsnum/3)
 				if line.strip().isnumeric():
-					print(line + " deaths" + players[pos])
+					if players[pos] in playerDeaths:
+						playerDeaths[players[pos]] += int(line)
+					else:
+						playerDeaths[players[pos]] = int(line)
 			if "Deaths" == line.strip():
 				deaths_spot = True
 			if assists_spot and kda_spot == False:
 				assistsnum += 1
 				pos = int(assistsnum/3)
 				if line.strip().isnumeric():
-					print(line + " assists" + players[pos])
+					if players[pos] in playerAssists:
+						playerAssists[players[pos]] += int(line)
+					else:
+						playerAssists[players[pos]] = int(line)
 			if "Assists" == line.strip():
 				assists_spot = True
 			if "KDA" == line.strip():
@@ -118,6 +121,10 @@ with open("games_stats.txt") as file:
 			if pentakill in line:
 				pentakill_spot = True
 	# print(sorted(playerHighestKill.items(), key=lambda x:x[1], reverse = True))
-	highestKills = sorted(playerHighestKill.items(), key=lambda x:x[1], reverse = True)[:3]
+	highestKills = sorted(playerHighestKill.items(), key=lambda x:x[1], reverse = True)[:5]
+	for player in playerKills.keys():
+		if player != "noplayer":
+			playerKDA[player] = round((playerKills[player] + playerAssists[player]) / max(1,playerDeaths[player]),2)
+	bestKDAs = sorted(playerKDA.items(), key=lambda x:x[1], reverse = True)[:5]
 
 					

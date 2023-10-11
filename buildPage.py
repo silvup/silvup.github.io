@@ -27,6 +27,8 @@ with open("index.html","w") as f:
 	f.write("<h2 class=lightsalmon>Most baron steals: ?</h2>\n")
 	f.write("<h2 class=lightsalmon>Most kills in a single game: </h2>\n")
 	f.write("<p class=lightsalmon>" + str(highestKills).translate(mapping_table) + "</p>\n")
+	f.write("<h2 class=lightsalmon>Best KDA's: </h2>\n")
+	f.write("<p class=lightsalmon>" + str(bestKDAs).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightblue>Best 2 seeds region: ?</h2>\n")
 	f.write("<h2 class=lightblue>Worlds winners: ?</h2>\n")
 	f.writelines(["</body>\n","</html>"])
