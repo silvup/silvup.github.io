@@ -25,6 +25,10 @@ hextech = 0
 
 file = ""
 
+blue_team = ""
+red_team = ""
+games = []
+
 firstblood_kill = []
 count_firstbloods = dict()
 
@@ -83,31 +87,54 @@ def get_gamename(urlD):
 	buf = io.StringIO(urlD)
 	item = ""
 	gamename = ""
+	global red_team
+	global blue_team
+	global games
+	red = False
+	blue = False
+	count = -1
 	while item.strip() != "</html>":
 		item = buf.readline()
-		if vs in item.strip():
-			return item.strip()[41:-72]
+		if "red-line" in item.strip():
+			count = 0
+			red = True
+		if "blue-line" in item.strip():
+			count = 0
+			blue = True
+		if count != -1:
+			count += 1
+			if count == 3:
+				if red:
+					red_team = item.strip()
+					red = False
+				if blue:
+					blue_team = item.strip()
+					blue = False
+				count = -1
+	cur_game = blue_team + " vs " + red_team
+	games.append(cur_game)
+	return(blue_team + " vs " + red_team)
 
+			
 with open("games_timelines.txt") as file:
 	for item in file:
 		resp = opener.open(item)
 		urlB = resp.read()
 		urlD = urlB.decode("utf8")
 		urlPretty = BeautifulSoup(urlB).prettify()
-		gamename = get_gamename(urlD)
 		current_gametime = get_gametime(urlD)
 		firstblood_kill.append(get_firstblood(urlPretty))
 		count_firstbloods = dict(Counter(firstblood_kill))
+		gamename = get_gamename(urlPretty)
 		if int(longest_gametime.replace(':', '')) < int(current_gametime.replace(':','')):
 			longest_gametime = current_gametime
 			longest_game = gamename
 		if int(shortest_gametime.replace(':', '')) > int(current_gametime.replace(':','')):
 			shortest_gametime = current_gametime
-			teams = gamename.split(" vs ")
 			if side_win == "blue":
-				shortest_winner = teams[0]
+				shortest_winner = blue_team
 			else:
-				shortest_winner = teams[1]
+				shortest_winner = red_team
 		cloud += urlD.count("cloud-dragon")
 		infernal += urlD.count("fire-dragon")
 		ocean += urlD.count("ocean-dragon")

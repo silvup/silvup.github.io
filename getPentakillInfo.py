@@ -2,6 +2,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import io
 from collections import Counter
+from getDragonNumbers import *
 
 
 class AppURLopener(urllib.request.FancyURLopener):
@@ -18,6 +19,8 @@ playerAssists = dict()
 playerHighestKill = dict()
 champsDeaths = dict()
 rolesplayed = dict()
+playersChampions = dict()
+teamChampions = dict()
 
 pentakill = "Penta kills"
 playerWord = "Player"
@@ -35,6 +38,7 @@ playernum = 0
 pentakill_spot = False
 player_spot = False
 # top jgl mid adc supp
+i = 0
 
 with open("games_stats.txt") as file:
 	for item in file:
@@ -55,9 +59,19 @@ with open("games_stats.txt") as file:
 		champions_spot = False
 		kda_spot = False
 		players = ["noplayer"]
+		teams = ["noteam"]
 		champs = ["nochamps"]
 		current_champ = ""
+		blue_team = ""
+		red_team = ""
+		vs_found = False
 		for line in urlLines:
+			if vs_found == False:
+				vs_found = True
+				teams = games[i].strip().split("vs")
+				blue_team = teams[0].strip()
+				red_team = teams[1].strip()
+				print(blue_team + red_team)
 			if "champions" in line:
 				# print(line.strip().split("\"")[1])
 				current_champ = line.strip().split("\"")[1]
@@ -102,6 +116,20 @@ with open("games_stats.txt") as file:
 						rolesplayed[champs[pos]].append(pos%5)
 					else:
 						rolesplayed[champs[pos]] = [pos%5]
+					if players[pos] in playersChampions:
+						playersChampions[players[pos]].append(champs[pos])
+					else:
+						playersChampions[players[pos]] = [champs[pos]]
+					if pos > 5:
+						if red_team in teamChampions:
+							teamChampions[red_team].append(champs[pos])
+						else:
+							teamChampions[red_team] = [champs[pos]]
+					else:
+						if blue_team in teamChampions:
+							teamChampions[blue_team].append(champs[pos])
+						else:
+							teamChampions[blue_team] = [champs[pos]]
 			if "Deaths" == line.strip():
 				deaths_spot = True
 			if assists_spot and kda_spot == False:
@@ -141,6 +169,7 @@ with open("games_stats.txt") as file:
 					pentakillNames += " "
 			if pentakill in line:
 				pentakill_spot = True
+		i += 1
 	# print(sorted(playerHighestKill.items(), key=lambda x:x[1], reverse = True))
 	highestKills = sorted(playerHighestKill.items(), key=lambda x:x[1], reverse = True)[:5]
 	for player in playerKills.keys():
@@ -153,6 +182,16 @@ with open("games_stats.txt") as file:
 		if champ != "nochamps":
 			most_roles_played[champ] = len(Counter(rolesplayed[champ]))
 	champs_with_most_roles = sorted(most_roles_played.items(), key=lambda x:x[1], reverse = True)[:5]
+	champs_played = dict()
+	for player in playersChampions.keys():
+		if player != "noplayer":
+			champs_played[player] = len(Counter(playersChampions[player]))
+	most_champs_played = sorted(champs_played.items(), key=lambda x:x[1], reverse = True)[:5]
+	champs_played_by_team = dict()
+	for team in teamChampions.keys():
+		if team != "noteam":
+			champs_played_by_team[team] = len(Counter(teamChampions[team]))
+	most_champs_played_by_team = sorted(champs_played_by_team.items(), key=lambda x:x[1], reverse = True)[:5]
 			
 		
 
