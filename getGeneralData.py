@@ -2,6 +2,7 @@ import urllib.request
 import io
 from bs4 import BeautifulSoup
 from collections import Counter
+import time
 
 
 class AppURLopener(urllib.request.FancyURLopener):
@@ -49,7 +50,9 @@ def get_picks(urlD):
 with open("games_general.txt") as file:
 	for item in file:
 		resp = opener.open(item)
+		# time.sleep(5)
 		urlB = resp.read()
+		# time.sleep(5)
 		urlD = urlB.decode("utf8")
 		urlPretty = BeautifulSoup(urlB).prettify()
 		get_picks(urlPretty)

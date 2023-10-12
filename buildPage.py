@@ -1,6 +1,11 @@
+import time
 from getDragonNumbers import *
+time.sleep(5)
 from getPentakillInfo import *
+time.sleep(5)
 from getGeneralData import *
+time.sleep(5)
+
 
 mapping_table = str.maketrans({'{': '','}': '','\'': '','[': '','(': '',')': '',']': ''})
 

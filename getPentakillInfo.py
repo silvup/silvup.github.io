@@ -2,7 +2,9 @@ import urllib.request
 from bs4 import BeautifulSoup
 import io
 from collections import Counter
+import time
 from getDragonNumbers import *
+# time.sleep(60)
 
 
 class AppURLopener(urllib.request.FancyURLopener):
@@ -42,6 +44,7 @@ i = 0
 
 with open("games_stats.txt") as file:
 	for item in file:
+		# time.sleep(5)
 		resp = opener.open(item)
 		urlB = resp.read()
 		urlD = BeautifulSoup(urlB).prettify()

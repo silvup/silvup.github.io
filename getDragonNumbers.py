@@ -2,6 +2,7 @@ import urllib.request
 import io
 from bs4 import BeautifulSoup
 from collections import Counter
+import time
 
 class AppURLopener(urllib.request.FancyURLopener):
     version = "Mozilla/5.0"
@@ -118,6 +119,7 @@ def get_gamename(urlD):
 			
 with open("games_timelines.txt") as file:
 	for item in file:
+		# time.sleep(5)
 		resp = opener.open(item)
 		urlB = resp.read()
 		urlD = urlB.decode("utf8")
