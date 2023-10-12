@@ -8,11 +8,13 @@ class AppURLopener(urllib.request.FancyURLopener):
 opener = AppURLopener()
 
 players = ["noplayer"]
+champs = ["nochamps"]
 playerKDA = dict()
 playerKills = dict()
 playerDeaths = dict()
 playerAssists = dict()
 playerHighestKill = dict()
+champsDeaths = dict()
 
 pentakill = "Penta kills"
 playerWord = "Player"
@@ -47,9 +49,15 @@ with open("games_stats.txt") as file:
 		kills_spot = False
 		deaths_spot = False
 		assists_spot = False
+		champions_spot = False
 		kda_spot = False
 		players = ["noplayer"]
+		current_champ = ""
 		for line in urlLines:
+			if "champions" in line:
+				# print(line.strip().split("\"")[1])
+				current_champ = line.strip().split("\"")[1]
+				champs.append(current_champ)
 			if player_spot:
 				playerLineCount += 1
 				if playerLineCount < 50 and playerLineCount % 5 == 4:
@@ -77,10 +85,15 @@ with open("games_stats.txt") as file:
 				deathsnum += 1
 				pos = int(deathsnum/3)
 				if line.strip().isnumeric():
+					# print(players[pos])
 					if players[pos] in playerDeaths:
 						playerDeaths[players[pos]] += int(line)
 					else:
 						playerDeaths[players[pos]] = int(line)
+					if champs[pos] in champsDeaths:
+						champsDeaths[champs[pos]] += int(line)
+					else:
+						champsDeaths[champs[pos]] = int(line)
 			if "Deaths" == line.strip():
 				deaths_spot = True
 			if assists_spot and kda_spot == False:
@@ -126,5 +139,7 @@ with open("games_stats.txt") as file:
 		if player != "noplayer":
 			playerKDA[player] = round((playerKills[player] + playerAssists[player]) / max(1,playerDeaths[player]),2)
 	bestKDAs = sorted(playerKDA.items(), key=lambda x:x[1], reverse = True)[:5]
+	mostDeaths = sorted(champsDeaths.items(), key=lambda x:x[1], reverse = True)[:5]
+	print(mostDeaths)
 
 					

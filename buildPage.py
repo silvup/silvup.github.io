@@ -37,4 +37,6 @@ with open("index.html","w") as f:
 	f.write("<p class=goldenrod>" + str(most_picked).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=goldenrod>Most banned champions: </h2>\n")
 	f.write("<p class=goldenrod>" + str(most_banned).translate(mapping_table) + "</p>\n")
+	f.write("<h2 class=goldenrod>Most deaths by champion: </h2>\n")
+	f.write("<p class=goldenrod>" + str(mostDeaths).translate(mapping_table) + "</p>\n")
 	f.writelines(["</body>\n","</html>"])
