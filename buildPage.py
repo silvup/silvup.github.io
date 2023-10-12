@@ -1,5 +1,6 @@
 from getDragonNumbers import *
 from getPentakillInfo import *
+from getGeneralData import *
 
 mapping_table = str.maketrans({'{': '','}': '','\'': '','[': '','(': '',')': '',']': ''})
 
@@ -12,6 +13,7 @@ with open("index.html","w") as f:
 		"</head>\n",
 		"<body>\n",
 		"<h1>PICKEM STATS</h1>\n\n",
+		"<h2 class=lightgreen>Shortest game: ", shortest_gametime, " ", shortest_winner,   "</h2>\n",
 		"<h2 class=lightgreen>Longest game: ", longest_gametime, " ", longest_game,   "</h2>\n", "\n<h2 class=lightgreen>Dragon Count</h2>", "</h2>\n"])	
 	f.write("<p class=lightgreen>Cloud: " + str(cloud) +"</p>\n")
 	f.write("<p class=lightgreen>Infernal: " + str(infernal) + "</p>\n")
@@ -31,4 +33,8 @@ with open("index.html","w") as f:
 	f.write("<p class=lightsalmon>" + str(bestKDAs).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightblue>Best 2 seeds region: ?</h2>\n")
 	f.write("<h2 class=lightblue>Worlds winners: ?</h2>\n")
+	f.write("<h2 class=goldenrod>Most picked champions: </h2>\n")
+	f.write("<p class=goldenrod>" + str(most_picked).translate(mapping_table) + "</p>\n")
+	f.write("<h2 class=goldenrod>Most banned champions: </h2>\n")
+	f.write("<p class=goldenrod>" + str(most_banned).translate(mapping_table) + "</p>\n")
 	f.writelines(["</body>\n","</html>"])

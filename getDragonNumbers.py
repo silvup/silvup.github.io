@@ -11,6 +11,8 @@ opener = AppURLopener()
 longest_gametime = "00:00"
 shortest_gametime = "99:99"
 longest_game = ""
+shortest_winner = ""
+side_win = "X"
 keyWord = "Game Time"
 vs = "vs"
 
@@ -27,6 +29,7 @@ firstblood_kill = []
 count_firstbloods = dict()
 
 def get_firstblood(urlD):
+	global side_win
 	buf = io.StringIO(urlD)
 	item = ""
 	events_found = False
@@ -34,23 +37,35 @@ def get_firstblood(urlD):
 	td_count = 0
 	td_found = False
 	current_player_name = "Noone"
+	return_value = ""
+	ret_found = False
+	last_icon = ""
 	while item.strip() != "</html>":
 		item = buf.readline()
-		if inside_tab and "</td>" in item.strip():
-			td_found = False
-			td_count = td_count % 7	
-		if td_found:
-			if td_count == 3:
-				current_player_name = item.strip()
-			if td_count == 5 and "kill-icon" in item.strip():
-				return current_player_name
-		if "Events" in item.strip():
-			events_found = True
-		if events_found and "Action" in item.strip():
-			inside_tab = True
-		if inside_tab and "<td" in item.strip():
-			td_found = True
-			td_count += 1
+		if ret_found != True:
+			if inside_tab and "</td>" in item.strip():
+				td_found = False
+				td_count = td_count % 7	
+			if td_found:
+				if td_count == 3:
+					current_player_name = item.strip()
+				if td_count == 5 and "kill-icon" in item.strip():
+					return_value = current_player_name
+					ret_found = True
+			if "Events" in item.strip():
+				events_found = True
+			if events_found and "Action" in item.strip():
+				inside_tab = True
+			if inside_tab and "<td" in item.strip():
+				td_found = True
+				td_count += 1
+		if "blueside-icon" in item.strip():
+			last_icon = "blue"
+		if "redside-icon" in item.strip():
+			last_icon = "red"
+		if "nexus-icon" in item.strip():
+			side_win = last_icon
+			return return_value
 
 def get_gametime(urlD):
 	gametime_found = False
@@ -87,7 +102,12 @@ with open("games_timelines.txt") as file:
 			longest_gametime = current_gametime
 			longest_game = gamename
 		if int(shortest_gametime.replace(':', '')) > int(current_gametime.replace(':','')):
-			shortest_gametime = current_gametime	
+			shortest_gametime = current_gametime
+			teams = gamename.split(" vs ")
+			if side_win == "blue":
+				shortest_winner = teams[0]
+			else:
+				shortest_winner = teams[1]
 		cloud += urlD.count("cloud-dragon")
 		infernal += urlD.count("fire-dragon")
 		ocean += urlD.count("ocean-dragon")

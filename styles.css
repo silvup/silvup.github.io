@@ -33,6 +33,10 @@ p {
   color: lightsalmon;
 }
 
+.goldenrod {
+  color: goldenrod;
+}
+
 label {
   font-family: verdana;
   font-size: 20px;
