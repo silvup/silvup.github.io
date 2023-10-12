@@ -1,6 +1,8 @@
 import urllib.request
 from bs4 import BeautifulSoup
 import io
+from collections import Counter
+
 
 class AppURLopener(urllib.request.FancyURLopener):
     version = "Mozilla/5.0"
@@ -15,6 +17,7 @@ playerDeaths = dict()
 playerAssists = dict()
 playerHighestKill = dict()
 champsDeaths = dict()
+rolesplayed = dict()
 
 pentakill = "Penta kills"
 playerWord = "Player"
@@ -52,6 +55,7 @@ with open("games_stats.txt") as file:
 		champions_spot = False
 		kda_spot = False
 		players = ["noplayer"]
+		champs = ["nochamps"]
 		current_champ = ""
 		for line in urlLines:
 			if "champions" in line:
@@ -94,6 +98,10 @@ with open("games_stats.txt") as file:
 						champsDeaths[champs[pos]] += int(line)
 					else:
 						champsDeaths[champs[pos]] = int(line)
+					if champs[pos] in rolesplayed:
+						rolesplayed[champs[pos]].append(pos%5)
+					else:
+						rolesplayed[champs[pos]] = [pos%5]
 			if "Deaths" == line.strip():
 				deaths_spot = True
 			if assists_spot and kda_spot == False:
@@ -140,6 +148,12 @@ with open("games_stats.txt") as file:
 			playerKDA[player] = round((playerKills[player] + playerAssists[player]) / max(1,playerDeaths[player]),2)
 	bestKDAs = sorted(playerKDA.items(), key=lambda x:x[1], reverse = True)[:5]
 	mostDeaths = sorted(champsDeaths.items(), key=lambda x:x[1], reverse = True)[:5]
-	print(mostDeaths)
+	most_roles_played = dict()
+	for champ in rolesplayed.keys():
+		if champ != "nochamps":
+			most_roles_played[champ] = len(Counter(rolesplayed[champ]))
+	champs_with_most_roles = sorted(most_roles_played.items(), key=lambda x:x[1], reverse = True)[:5]
+			
+		
 
 					
