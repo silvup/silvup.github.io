@@ -38,7 +38,7 @@ with open("index.html","w") as f:
 	f.write("<p class=goldenrod>" + str(champs_with_most_roles).translate(mapping_table) + "</p>\n")	
 	f.write("<h2 class =lightsalmon>Players with a pentakill: " + pentakillNames + "</h2>\n")
 	f.write("<h2 class=lightsalmon>Most firstbloods: </h2>\n")
-	f.write("<p class=lightsalmon>" + str(count_firstbloods).translate(mapping_table) + "</p>\n")
+	f.write("<p class=lightsalmon>" + str(highest_firstbloods).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightsalmon>Most kills in a single game: </h2>\n")
 	f.write("<p class=lightsalmon>" + str(highestKills).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightsalmon>Best KDA's: </h2>\n")

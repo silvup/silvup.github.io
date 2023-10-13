@@ -126,7 +126,6 @@ with open("games_timelines.txt") as file:
 		urlPretty = BeautifulSoup(urlB).prettify()
 		current_gametime = get_gametime(urlD)
 		firstblood_kill.append(get_firstblood(urlPretty))
-		count_firstbloods = dict(Counter(firstblood_kill))
 		gamename = get_gamename(urlPretty)
 		if int(longest_gametime.replace(':', '')) < int(current_gametime.replace(':','')):
 			longest_gametime = current_gametime
@@ -144,6 +143,8 @@ with open("games_timelines.txt") as file:
 		mountain += urlD.count("mountain-dragon")
 		hextech += urlD.count("hextech-dragon")
 		file = urlD
+	count_firstbloods = dict(Counter(firstblood_kill))
+	highest_firstbloods = sorted(count_firstbloods.items(), key=lambda x:x[1], reverse = True)[:5]
 cloud = int(cloud/2)
 infernal = int(infernal/2)
 ocean = int(ocean/2)
