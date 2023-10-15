@@ -25,7 +25,7 @@ with open("index.html","w") as f:
 	f.write("<p class=lightgreen>Chemtech: " + str(chemtech) + "</p>\n")
 	f.write("<p class=lightgreen>Mountain: " + str(mountain) + "</p>\n")
 	f.write("<p class=lightgreen>Hextech: " + str(hextech) + "</p>\n")
-	f.write("<h2 class=lightgreen>Reverse sweeps: 0</h2>\n")
+	f.write("<h2 class=lightgreen>Reverse sweeps: 1</h2>\n")
 	f.write("<h2 class=lightgreen>Baron steals: 0</h2>\n")
 	f.write("<h2 class=lightgreen>Pentakills: " + str(pentakillNumber) + "</h2>\n")
 	f.write("<h2 class=goldenrod>Most picked champions: </h2>\n")
