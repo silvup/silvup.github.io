@@ -45,7 +45,7 @@ with open("index.html","w") as f:
 	f.write("<p class=lightsalmon>" + str(bestKDAs).translate(mapping_table) + "</p>\n")
 	f.write("<h2 class=lightsalmon>Most champions played: </h2>\n")
 	f.write("<p class=lightsalmon>" + str(most_champs_played).translate(mapping_table) + "</p>\n")
-	f.write("<h2 class=lightblue>Best 2 seeds region: ?</h2>\n")
+	f.write("<h2 class=lightblue>Best 2 seeds region: GAM Esports</h2>\n")
 	f.writelines(["<h2 class=lightblue>Shortest game: ", shortest_gametime, " ", shortest_winner,   "</h2>\n"])
 	f.write("<h2 class=lightblue>Most baron steals (team): ?</h2>\n")
 	f.write("<h2 class=lightblue>Worlds winners: ?</h2>\n")
