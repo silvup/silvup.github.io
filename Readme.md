@@ -1,0 +1,2 @@
+Needed a page to count the results and stats helpfuf with tracking the progress for League of Legends Worlds 2023 Pickems. I kind of first time python and web scraping for it so the quality
+of code is probably far from brilliance but anyway it does what it should and i have a working page already for playins :) Might refactor something next year.
