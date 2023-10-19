@@ -5,6 +5,7 @@ from getPentakillInfo import *
 time.sleep(5)
 from getGeneralData import *
 time.sleep(5)
+from getChampWinrate import *
 
 
 mapping_table = str.maketrans({'{': '','}': '','\'': '','[': '','(': '',')': '',']': ''})
