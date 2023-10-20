@@ -26,7 +26,7 @@ with open("champion_stats.txt") as file:
 			if endTable in line:
 				endTableFound = True
 			if endTableFound:
-				if imgFound:
+				if imgFound:	
 					if not championFound:
 						championStats[line.strip()] = []
 						championFound = True
