@@ -184,7 +184,7 @@ with open("games_stats.txt") as file:
 	for champ in rolesplayed.keys():
 		if champ != "nochamps":
 			most_roles_played[champ] = len(Counter(rolesplayed[champ]))
-	champs_with_most_roles = sorted(most_roles_played.items(), key=lambda x:x[1], reverse = True)[:8]
+	champs_with_most_roles = sorted(most_roles_played.items(), key=lambda x:x[1], reverse = True)[:11]
 	champs_played = dict()
 	for player in playersChampions.keys():
 		if player != "noplayer":
